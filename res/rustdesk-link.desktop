@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=taoziapp
+NoDisplay=true
+MimeType=x-scheme-handler/taoziapp;
+TryExec=taoziapp
+Exec=taoziapp %u
+Icon=taoziapp
+Terminal=false
+Type=Application
+StartupNotify=false
+StartupWMClass=taoziapp

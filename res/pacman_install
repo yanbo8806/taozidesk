@@ -1,0 +1,47 @@
+# arg 1:  the new package version
+#pre_install() {
+#}
+
+# arg 1:  the new package version
+post_install() {
+	# do something here
+	cp /usr/share/taoziapp/files/taoziapp.service /etc/systemd/system/taoziapp.service
+	cp /usr/share/taoziapp/files/taoziapp.desktop /usr/share/applications/
+	cp /usr/share/taoziapp/files/taoziapp-link.desktop /usr/share/applications/
+	systemctl daemon-reload
+	systemctl enable taoziapp
+	systemctl start taoziapp
+	update-desktop-database
+}
+
+# arg 1:  the new package version
+# arg 2:  the old package version
+pre_upgrade() {
+    systemctl stop taoziapp || true
+}
+
+# arg 1:  the new package version
+# arg 2:  the old package version
+post_upgrade() {
+	cp /usr/share/taoziapp/files/taoziapp.service /etc/systemd/system/taoziapp.service
+	cp /usr/share/taoziapp/files/taoziapp.desktop /usr/share/applications/
+	cp /usr/share/taoziapp/files/taoziapp-link.desktop /usr/share/applications/
+	systemctl daemon-reload
+	systemctl enable taoziapp
+	systemctl start taoziapp
+	update-desktop-database
+}
+
+# arg 1:  the old package version
+pre_remove() {
+	systemctl stop taoziapp || true
+	systemctl disable taoziapp || true
+	rm /etc/systemd/system/taoziapp.service || true
+}
+
+# arg 1:  the old package version
+post_remove() {
+	rm /usr/share/applications/taoziapp.desktop || true
+	rm /usr/share/applications/taoziapp-link.desktop || true
+	update-desktop-database
+}
